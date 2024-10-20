@@ -1,0 +1,26 @@
+services:
+  products-service:
+    build:
+      context: ./ProductsService
+    ports:
+      - "5001:8080"
+    container_name: products-service
+    restart: always  # Restart container if it exits
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/products"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  orders-service:
+    build:
+      context: ./OrdersService
+    ports:
+      - "5002:8080"
+    container_name: orders-service
+    restart: always  # Restart container if it exits
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/orders"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
